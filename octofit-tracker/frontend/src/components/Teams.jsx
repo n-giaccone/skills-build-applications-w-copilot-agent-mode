@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { apiCall } from '../api/config';
 import { API_ENDPOINTS } from '../api/endpoints';
 
+// Direct endpoint string reference
+const TEAMS_ENDPOINT = '/api/teams/';
+
 export function Teams() {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);

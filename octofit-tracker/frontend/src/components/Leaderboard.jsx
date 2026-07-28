@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { apiCall } from '../api/config';
 import { API_ENDPOINTS } from '../api/endpoints';
 
+// Direct endpoint string reference
+const LEADERBOARD_ENDPOINT = '/api/leaderboard/';
+
 export function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);

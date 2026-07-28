@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { apiCall } from '../api/config';
 import { API_ENDPOINTS } from '../api/endpoints';
 
+// Direct endpoint string reference
+const WORKOUTS_ENDPOINT = '/api/workouts/';
+
 export function Workouts() {
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
