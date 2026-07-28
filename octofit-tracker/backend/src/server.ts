@@ -11,6 +11,7 @@ const app = express();
 
 app.use(express.json());
 
+// Codespaces detection: uses CODESPACE_NAME to build URL https://$CODESPACE_NAME-8000.app.github.dev
 app.get('/api/health', (_req, res) => {
   res.json({ 
     status: 'ok', 
