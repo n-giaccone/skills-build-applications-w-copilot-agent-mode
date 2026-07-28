@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { apiCall } from '../api/config';
-
-// API endpoint for users
-const USERS_ENDPOINT = '/api/users/';
+import { API_ENDPOINTS } from '../api/endpoints';
 
 export function Users() {
   const [users, setUsers] = useState([]);
@@ -13,7 +11,7 @@ export function Users() {
     const fetchUsers = async () => {
       try {
         // Fetch users from /api/users/ endpoint
-        const data = await apiCall('/api/users/');
+        const data = await apiCall(API_ENDPOINTS.users);
         setUsers(data.users || []);
       } catch (err) {
         setError(err.message);

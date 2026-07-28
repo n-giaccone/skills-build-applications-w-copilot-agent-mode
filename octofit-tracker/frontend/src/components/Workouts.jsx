@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { apiCall } from '../api/config';
-
-// API endpoint for workouts
-const WORKOUTS_ENDPOINT = '/api/workouts/';
+import { API_ENDPOINTS } from '../api/endpoints';
 
 export function Workouts() {
   const [workouts, setWorkouts] = useState([]);
@@ -13,7 +11,7 @@ export function Workouts() {
     const fetchWorkouts = async () => {
       try {
         // Fetch workouts from /api/workouts/ endpoint
-        const data = await apiCall('/api/workouts/');
+        const data = await apiCall(API_ENDPOINTS.workouts);
         setWorkouts(data.workouts || []);
       } catch (err) {
         setError(err.message);
