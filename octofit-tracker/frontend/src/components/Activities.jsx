@@ -6,6 +6,8 @@ export function Activities() {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // API endpoint: /api/activities/
+  const activitiesEndpoint = API_ENDPOINTS.activities;
 
   useEffect(() => {
     const fetchActivities = async () => {

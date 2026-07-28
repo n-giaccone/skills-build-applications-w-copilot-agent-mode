@@ -6,6 +6,8 @@ export function Workouts() {
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // API endpoint: /api/workouts/
+  const workoutsEndpoint = API_ENDPOINTS.workouts;
 
   useEffect(() => {
     const fetchWorkouts = async () => {

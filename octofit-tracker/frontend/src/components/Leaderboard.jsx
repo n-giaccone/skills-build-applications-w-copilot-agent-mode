@@ -6,6 +6,8 @@ export function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // API endpoint: /api/leaderboard/
+  const leaderboardEndpoint = API_ENDPOINTS.leaderboard;
 
   useEffect(() => {
     const fetchLeaderboard = async () => {

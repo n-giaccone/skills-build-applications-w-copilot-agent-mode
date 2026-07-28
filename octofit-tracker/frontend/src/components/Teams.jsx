@@ -6,6 +6,8 @@ export function Teams() {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // API endpoint: /api/teams/
+  const teamsEndpoint = API_ENDPOINTS.teams;
 
   useEffect(() => {
     const fetchTeams = async () => {

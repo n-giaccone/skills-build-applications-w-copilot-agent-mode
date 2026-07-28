@@ -6,6 +6,8 @@ export function Users() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // API endpoint: /api/users/
+  const usersEndpoint = API_ENDPOINTS.users;
 
   useEffect(() => {
     const fetchUsers = async () => {
