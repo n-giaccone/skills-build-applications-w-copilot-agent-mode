@@ -12,7 +12,8 @@ export function Teams() {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const data = await apiCall(TEAMS_ENDPOINT);
+        // Fetch teams from /api/teams/ endpoint
+        const data = await apiCall('/api/teams/');
         setTeams(data.teams || []);
       } catch (err) {
         setError(err.message);

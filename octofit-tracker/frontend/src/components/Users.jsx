@@ -12,7 +12,8 @@ export function Users() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const data = await apiCall(USERS_ENDPOINT);
+        // Fetch users from /api/users/ endpoint
+        const data = await apiCall('/api/users/');
         setUsers(data.users || []);
       } catch (err) {
         setError(err.message);

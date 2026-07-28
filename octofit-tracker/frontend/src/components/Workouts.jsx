@@ -12,7 +12,8 @@ export function Workouts() {
   useEffect(() => {
     const fetchWorkouts = async () => {
       try {
-        const data = await apiCall(WORKOUTS_ENDPOINT);
+        // Fetch workouts from /api/workouts/ endpoint
+        const data = await apiCall('/api/workouts/');
         setWorkouts(data.workouts || []);
       } catch (err) {
         setError(err.message);

@@ -12,7 +12,8 @@ export function Leaderboard() {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const data = await apiCall(LEADERBOARD_ENDPOINT);
+        // Fetch leaderboard from /api/leaderboard/ endpoint
+        const data = await apiCall('/api/leaderboard/');
         setLeaderboard(data.leaderboard || []);
       } catch (err) {
         setError(err.message);

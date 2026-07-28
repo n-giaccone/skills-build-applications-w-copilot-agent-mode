@@ -12,7 +12,8 @@ export function Activities() {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const data = await apiCall(ACTIVITIES_ENDPOINT);
+        // Fetch activities from /api/activities/ endpoint
+        const data = await apiCall('/api/activities/');
         setActivities(data.activities || []);
       } catch (err) {
         setError(err.message);
