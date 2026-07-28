@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { apiCall } from '../api/config';
+import { apiCall, apiConfig } from '../api/config';
 import { API_ENDPOINTS } from '../api/endpoints';
 
+// Codespace API endpoint: https://<codespace-name>-8000.app.github.dev/api/activities
 // Direct endpoint string reference
 const ACTIVITIES_ENDPOINT = '/api/activities/';
 
@@ -9,7 +10,7 @@ export function Activities() {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // API endpoint: /api/activities/
+  // API endpoint: /api/activities/ (Codespace: -8000.app.github.dev/api/activities)
   const activitiesEndpoint = API_ENDPOINTS.activities;
 
   useEffect(() => {

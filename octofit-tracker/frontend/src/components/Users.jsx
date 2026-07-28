@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { apiCall } from '../api/config';
+import { apiCall, apiConfig } from '../api/config';
 import { API_ENDPOINTS } from '../api/endpoints';
 
+// Codespace API endpoint: https://<codespace-name>-8000.app.github.dev/api/users
 // Direct endpoint string reference
 const USERS_ENDPOINT = '/api/users/';
 
@@ -9,7 +10,7 @@ export function Users() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // API endpoint: /api/users/
+  // API endpoint: /api/users/ (Codespace: -8000.app.github.dev/api/users)
   const usersEndpoint = API_ENDPOINTS.users;
 
   useEffect(() => {

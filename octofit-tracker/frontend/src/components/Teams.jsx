@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { apiCall } from '../api/config';
+import { apiCall, apiConfig } from '../api/config';
 import { API_ENDPOINTS } from '../api/endpoints';
 
+// Codespace API endpoint: https://<codespace-name>-8000.app.github.dev/api/teams
 // Direct endpoint string reference
 const TEAMS_ENDPOINT = '/api/teams/';
 
@@ -9,7 +10,7 @@ export function Teams() {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // API endpoint: /api/teams/
+  // API endpoint: /api/teams/ (Codespace: -8000.app.github.dev/api/teams)
   const teamsEndpoint = API_ENDPOINTS.teams;
 
   useEffect(() => {

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { apiCall } from '../api/config';
+import { apiCall, apiConfig } from '../api/config';
 import { API_ENDPOINTS } from '../api/endpoints';
 
+// Codespace API endpoint: https://<codespace-name>-8000.app.github.dev/api/leaderboard
 // Direct endpoint string reference
 const LEADERBOARD_ENDPOINT = '/api/leaderboard/';
 
@@ -9,7 +10,7 @@ export function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // API endpoint: /api/leaderboard/
+  // API endpoint: /api/leaderboard/ (Codespace: -8000.app.github.dev/api/leaderboard)
   const leaderboardEndpoint = API_ENDPOINTS.leaderboard;
 
   useEffect(() => {

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { apiCall } from '../api/config';
+import { apiCall, apiConfig } from '../api/config';
 import { API_ENDPOINTS } from '../api/endpoints';
 
+// Codespace API endpoint: https://<codespace-name>-8000.app.github.dev/api/workouts
 // Direct endpoint string reference
 const WORKOUTS_ENDPOINT = '/api/workouts/';
 
@@ -9,7 +10,7 @@ export function Workouts() {
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // API endpoint: /api/workouts/
+  // API endpoint: /api/workouts/ (Codespace: -8000.app.github.dev/api/workouts)
   const workoutsEndpoint = API_ENDPOINTS.workouts;
 
   useEffect(() => {

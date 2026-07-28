@@ -14,10 +14,20 @@ const baseUrl = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev`
   : 'http://localhost:8000';
 
+// Codespace API endpoints
+const getEndpointUrl = (endpoint) => {
+  const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
+  if (codespaceName) {
+    return `https://${codespaceName}-8000.app.github.dev${endpoint}`;
+  }
+  return `http://localhost:8000${endpoint}`;
+};
+
 export const apiConfig = {
   baseUrl,
   isCodespaces: !!codespaceName,
   environment: codespaceName ? 'codespaces' : 'local',
+  getEndpointUrl,
 };
 
 /**
