@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { Leaderboard } from '../models/Leaderboard';
 
 const router = Router();
 
@@ -8,10 +9,11 @@ const router = Router();
  */
 router.get('/', async (_req: Request, res: Response) => {
   try {
-    res.json({ 
-      message: 'GET leaderboard', 
-      leaderboard: [] 
-    });
+    const leaderboard = await Leaderboard.find()
+      .sort({ rank: 1 })
+      .populate('userId', 'username email')
+      .populate('teamId', 'name');
+    res.json({ message: 'GET leaderboard', leaderboard });
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve leaderboard' });
   }
@@ -24,10 +26,11 @@ router.get('/', async (_req: Request, res: Response) => {
 router.get('/:teamId', async (req: Request, res: Response) => {
   try {
     const { teamId } = req.params;
-    res.json({ 
-      message: `GET leaderboard for team ${teamId}`, 
-      leaderboard: [] 
-    });
+    const leaderboard = await Leaderboard.find({ teamId })
+      .sort({ rank: 1 })
+      .populate('userId', 'username email')
+      .populate('teamId', 'name');
+    res.json({ message: `GET leaderboard for team ${teamId}`, leaderboard });
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve team leaderboard' });
   }

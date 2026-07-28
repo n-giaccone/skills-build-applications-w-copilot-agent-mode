@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { Team } from '../models/Team';
 
 const router = Router();
 
@@ -8,7 +9,8 @@ const router = Router();
  */
 router.get('/', async (_req: Request, res: Response) => {
   try {
-    res.json({ message: 'GET all teams', teams: [] });
+    const teams = await Team.find().populate('members', 'username email');
+    res.json({ message: 'GET all teams', teams });
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve teams' });
   }
@@ -21,7 +23,11 @@ router.get('/', async (_req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    res.json({ message: `GET team ${id}`, team: null });
+    const team = await Team.findById(id).populate('members', 'username email');
+    if (!team) {
+      return res.status(404).json({ error: 'Team not found' });
+    }
+    res.json({ message: `GET team ${id}`, team });
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve team' });
   }
@@ -34,7 +40,9 @@ router.get('/:id', async (req: Request, res: Response) => {
 router.post('/', async (req: Request, res: Response) => {
   try {
     const { name, description } = req.body;
-    res.status(201).json({ message: 'Team created', team: { name, description } });
+    const team = new Team({ name, description });
+    await team.save();
+    res.status(201).json({ message: 'Team created', team });
   } catch (error) {
     res.status(400).json({ error: 'Failed to create team' });
   }
@@ -47,7 +55,11 @@ router.post('/', async (req: Request, res: Response) => {
 router.put('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    res.json({ message: `Team ${id} updated` });
+    const team = await Team.findByIdAndUpdate(id, req.body, { new: true }).populate('members', 'username email');
+    if (!team) {
+      return res.status(404).json({ error: 'Team not found' });
+    }
+    res.json({ message: `Team ${id} updated`, team });
   } catch (error) {
     res.status(400).json({ error: 'Failed to update team' });
   }
@@ -60,6 +72,10 @@ router.put('/:id', async (req: Request, res: Response) => {
 router.delete('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    const team = await Team.findByIdAndDelete(id);
+    if (!team) {
+      return res.status(404).json({ error: 'Team not found' });
+    }
     res.json({ message: `Team ${id} deleted` });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete team' });

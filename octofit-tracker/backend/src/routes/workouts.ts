@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { Workout } from '../models/Workout';
 
 const router = Router();
 
@@ -8,7 +9,8 @@ const router = Router();
  */
 router.get('/', async (_req: Request, res: Response) => {
   try {
-    res.json({ message: 'GET all workouts', workouts: [] });
+    const workouts = await Workout.find();
+    res.json({ message: 'GET all workouts', workouts });
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve workouts' });
   }
@@ -21,7 +23,11 @@ router.get('/', async (_req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    res.json({ message: `GET workout ${id}`, workout: null });
+    const workout = await Workout.findById(id);
+    if (!workout) {
+      return res.status(404).json({ error: 'Workout not found' });
+    }
+    res.json({ message: `GET workout ${id}`, workout });
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve workout' });
   }
@@ -33,11 +39,10 @@ router.get('/:id', async (req: Request, res: Response) => {
  */
 router.post('/', async (req: Request, res: Response) => {
   try {
-    const { name, type, duration, difficulty } = req.body;
-    res.status(201).json({ 
-      message: 'Workout created', 
-      workout: { name, type, duration, difficulty } 
-    });
+    const { name, type, duration, difficulty, description } = req.body;
+    const workout = new Workout({ name, type, duration, difficulty, description });
+    await workout.save();
+    res.status(201).json({ message: 'Workout created', workout });
   } catch (error) {
     res.status(400).json({ error: 'Failed to create workout' });
   }
@@ -50,9 +55,10 @@ router.post('/', async (req: Request, res: Response) => {
 router.post('/suggest/:userId', async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
+    const workouts = await Workout.find().limit(3);
     res.json({ 
       message: `Personalized workouts for user ${userId}`, 
-      suggestions: [] 
+      suggestions: workouts 
     });
   } catch (error) {
     res.status(500).json({ error: 'Failed to generate workout suggestions' });
@@ -66,7 +72,11 @@ router.post('/suggest/:userId', async (req: Request, res: Response) => {
 router.put('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    res.json({ message: `Workout ${id} updated` });
+    const workout = await Workout.findByIdAndUpdate(id, req.body, { new: true });
+    if (!workout) {
+      return res.status(404).json({ error: 'Workout not found' });
+    }
+    res.json({ message: `Workout ${id} updated`, workout });
   } catch (error) {
     res.status(400).json({ error: 'Failed to update workout' });
   }
@@ -79,6 +89,10 @@ router.put('/:id', async (req: Request, res: Response) => {
 router.delete('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    const workout = await Workout.findByIdAndDelete(id);
+    if (!workout) {
+      return res.status(404).json({ error: 'Workout not found' });
+    }
     res.json({ message: `Workout ${id} deleted` });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete workout' });
