@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { apiCall } from '../api/config';
 
+// API endpoint for leaderboard
+const LEADERBOARD_ENDPOINT = '/api/leaderboard/';
+
 export function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,7 +12,7 @@ export function Leaderboard() {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const data = await apiCall('/api/leaderboard/');
+        const data = await apiCall(LEADERBOARD_ENDPOINT);
         setLeaderboard(data.leaderboard || []);
       } catch (err) {
         setError(err.message);

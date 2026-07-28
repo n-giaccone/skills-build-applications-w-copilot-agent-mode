@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { apiCall } from '../api/config';
 
+// API endpoint for teams
+const TEAMS_ENDPOINT = '/api/teams/';
+
 export function Teams() {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,7 +12,7 @@ export function Teams() {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const data = await apiCall('/api/teams/');
+        const data = await apiCall(TEAMS_ENDPOINT);
         setTeams(data.teams || []);
       } catch (err) {
         setError(err.message);

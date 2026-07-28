@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { apiCall } from '../api/config';
 
+// API endpoint for activities
+const ACTIVITIES_ENDPOINT = '/api/activities/';
+
 export function Activities() {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,7 +12,7 @@ export function Activities() {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const data = await apiCall('/api/activities/');
+        const data = await apiCall(ACTIVITIES_ENDPOINT);
         setActivities(data.activities || []);
       } catch (err) {
         setError(err.message);
